@@ -1,0 +1,209 @@
+# Salt & Sage Restaurant — AI Culinary Concierge & WhatsApp Automation
+
+An AI-powered restaurant customer service and automation system designed to streamline menu inquiries, table reservations, food ordering, and customer support through a web chat interface and WhatsApp.
+
+The system combines conversational AI, document-based knowledge retrieval, backend API development, and Human-in-the-Loop (HITL) workflows to deliver context-aware responses and support escalation to human staff.
+
+**Tech Stack:** Node.js · Express.js · Google Gemini · LangChain · WhatsApp Cloud API · JavaScript · REST APIs
+
+## Overview
+
+Salt & Sage is an AI restaurant concierge that helps customers access restaurant information, place orders, and request table reservations through natural conversation. It uses a document-based knowledge source to answer restaurant-related questions and supports human intervention when AI assistance is required.
+
+The project demonstrates practical applications of generative AI, information retrieval, API integration, and workflow automation in a restaurant customer service environment.
+
+## Key Features
+
+- **Document-Based Knowledge Retrieval:** Uses restaurant information to answer questions about menu items, prices, opening hours, and restaurant policies.
+- **Conversational AI Assistant:** Integrates Google Gemini with LangChain to process customer messages and generate context-aware responses.
+- **Automated Reservations and Orders:** Collects customer details, reservation preferences, order information, and delivery details where supported.
+- **Reference ID Generation:** Generates unique reference IDs to identify orders and reservations.
+- **WhatsApp Integration:** Connects the assistant to the Meta WhatsApp Cloud API to receive and respond to customer messages.
+- **Human-in-the-Loop Support:** Allows customers to request human assistance and supports the transition from AI responses to staff handling.
+- **AI Mode Switching:** Supports `/human`, `/ai`, and `/bot` commands according to the implemented conversation workflow.
+- **Manager Notifications:** Supports WhatsApp notifications for new orders and reservations when configured.
+- **Web Chat Interface:** Provides a browser-based interface for interacting with and testing the assistant.
+
+## System Architecture
+
+```mermaid
+flowchart TD
+    A[Salt & Sage Knowledge Document] --> B[Document Processing and Retrieval]
+    B --> C[Knowledge Retrieval Workflow]
+    D[Customer Web Chat] --> E[Express.js Backend]
+    F[WhatsApp Customer] --> G[Meta WhatsApp Webhook]
+    G --> E
+    E --> C
+    C --> H[Google Gemini Model]
+    H --> I[Context-Aware Response]
+    I --> E
+    E --> J[Web Chat or WhatsApp Response]
+    E --> K[Order and Reservation Workflow]
+    K --> L[Manager WhatsApp Notification]
+    E --> M[Human Support Handoff]
+```
+
+## Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| JavaScript | Application development |
+| Node.js | Server-side JavaScript runtime |
+| Express.js | Backend server and REST API endpoints |
+| Google Gemini | Natural-language processing and response generation |
+| LangChain | Language model integration and workflow orchestration |
+| Document-Based Knowledge Source | Restaurant information and policies |
+| Meta WhatsApp Cloud API | WhatsApp messaging integration |
+| REST APIs and Webhooks | Communication between application components |
+| dotenv | Environment variable configuration |
+| Axios | HTTP requests to external APIs |
+| Zod | Schema validation where implemented |
+| ngrok | Local webhook testing during development |
+
+## Project Structure
+
+```text
+Salt-and-Sage-Restaurant/
+├── data/
+│   └── Salt_and_Sage_Restaurant_Chatbot_Data.docx
+├── public/
+│   └── index.html
+├── .env
+├── server1.js
+├── package.json
+└── README.md
+```
+
+**Important:** The folder and document names above are the proposed Salt & Sage names. Rename your actual files only after updating any corresponding file paths in your application code. Keep `server1.js` unchanged if it is the entry point your application uses.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18 or later
+- npm
+- Google AI Studio API key with Gemini API access
+- Meta for Developers account with a configured WhatsApp Business Cloud API application
+- ngrok or another publicly accessible HTTPS endpoint for local webhook testing
+
+### 1. Install Dependencies
+
+Open a terminal in your project directory.
+
+If the project already contains a `package.json` with the required dependencies, run:
+
+```bash
+npm install
+```
+
+If you have not yet installed the required packages, use:
+
+```bash
+npm install express dotenv cors axios zod @langchain/google-genai @langchain/community @langchain/core @langchain/textsplitters langchain
+```
+
+### 2. Configure Environment Variables
+
+Create a `.env` file in the project root directory:
+
+```env
+PORT=3000
+
+# Google Gemini API
+GOOGLE_API_KEY=your_google_api_key
+
+# Meta WhatsApp Cloud API
+META_PHONE_NUMBER_ID=your_phone_number_id
+META_WHATSAPP_TOKEN=your_whatsapp_access_token
+META_VERIFY_TOKEN=your_custom_verify_token
+
+# Manager WhatsApp Notification Recipient
+MANAGER_WHATSAPP_NUMBER=your_manager_number
+```
+
+Replace the placeholder values with your actual credentials.
+
+**Security note:** Never publish API keys, access tokens, or private phone numbers. Add `.env` to `.gitignore` before uploading your project to GitHub. Ensure the variable names match those used in your application code.
+
+### 3. Run the Application
+
+Start the Node.js server:
+
+```bash
+node server1.js
+```
+
+For local WhatsApp webhook testing, open a separate terminal and run:
+
+```bash
+ngrok http 3000
+```
+
+Configure the generated HTTPS URL in your Meta webhook settings using the webhook routes implemented in your application.
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/` | Serves the web chat interface |
+| `POST` | `/api/chat` | Processes customer messages from the web interface |
+| `GET` | `/api/whatsapp/webhook` | Handles Meta webhook verification |
+| `POST` | `/api/whatsapp/webhook` | Receives incoming WhatsApp events and messages |
+
+Confirm these routes against `server1.js` before relying on this documentation.
+
+## Conversation Workflow
+
+1. A customer sends a message through the web chat interface or WhatsApp.
+2. The backend receives the message through the relevant API endpoint or webhook.
+3. The assistant retrieves relevant restaurant information and uses the language model to generate a response.
+4. For supported ordering and reservation workflows, the application collects the required customer information and generates a reference ID.
+5. The manager receives a WhatsApp notification when the notification integration is configured.
+6. When a customer requests human assistance, the application switches to the human-support workflow.
+7. AI assistance can be restored through the supported mode-switching commands.
+
+## WhatsApp Commands
+
+| Command | Purpose |
+|---|---|
+| `/human` | Requests human assistance and pauses automated replies for the relevant conversation |
+| `/ai` | Switches the conversation back to AI mode |
+| `/bot` | Alternative command for returning to AI mode |
+
+Command behavior depends on the session-management and message-routing logic implemented in the backend.
+
+## Engineering Highlights
+
+This project demonstrates practical experience with:
+
+- Integrating large language models into backend applications.
+- Developing document-grounded conversational AI workflows.
+- Connecting external services through REST APIs and webhooks.
+- Collecting structured information for business workflows.
+- Implementing AI-to-human conversation handoffs.
+- Managing credentials through environment variables.
+- Building a multi-channel customer support application.
+
+## Future Improvements
+
+- Persistent storage for orders, reservations, and conversation sessions.
+- Authentication and role-based access for restaurant staff.
+- Enhanced input validation and structured error handling.
+- API rate limiting and additional security controls.
+- Evaluation of retrieval quality and safeguards against unsupported responses.
+- Automated testing and CI/CD deployment.
+- Reservation availability checks and order status tracking.
+- Production-grade monitoring, logging, and privacy controls.
+
+## Developer
+
+**Safiya Mirbahar**  
+Computer Science Student | AI & Software Development
+
+GitHub: [SafiaMirbahar](https://github.com/SafiaMirbahar)
+
+This project demonstrates practical work in conversational AI, knowledge retrieval, backend engineering, and third-party API integration.
+
+---
+
+*Documentation describes the intended application functionality. Verify each feature against the actual implementation before presenting the project as production-ready.*

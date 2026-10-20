@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salt and Sage Restaurant | Coastal Kitchen & Grill</title>
+  
+  <!-- Font Awesome Icons & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-main: #0a0e14;
+      --bg-card: #121824;
+      --bg-card-hover: #1a2333;
+      --gold-primary: #f5b041;
+      --gold-glow: #e59866;
+      --text-main: #f2f4f4;
+      --text-muted: #c2c9cc;
+      --border-color: rgba(245, 176, 65, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    html {
+      font-size: clamp(16px, 1.1vw, 22px);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.8px;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(10, 14, 20, 0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 999;
+      padding: 1.2rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .logo-icon {
+      font-size: 2.2rem;
+      color: var(--gold-primary);
+    }
+
+    .logo-text {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+      letter-spacing: 1px;
+    }
+
+    .logo-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: block;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      display: flex;
+      gap: 2.2rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 600;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      color: var(--gold-primary);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-glow));
+      color: #000;
+      font-weight: 700;
+      padding: 0.85rem 1.8rem;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: 0.3s;
+      border: none;
+      font-size: 1.05rem;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .btn-gold:hover {
+      box-shadow: 0 0 22px rgba(245, 176, 65, 0.6);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      width: 100vw;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 100vh;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 14, 20, 0.75);
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 1100px;
+      padding: 0 2rem;
+    }
+
+    .hero-tagline {
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      letter-spacing: 3.5px;
+      font-size: 1.15rem;
+      margin-bottom: 1.4rem;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 5vw, 4.5rem);
+      color: #fff;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .hero p {
+      font-size: 1.35rem;
+      color: var(--text-muted);
+      margin-bottom: 2.8rem;
+      line-height: 1.7;
+      max-width: 880px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* General Layout Sections */
+    .section-container {
+      padding: 5rem 5%;
+      width: 100%;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      color: var(--gold-primary);
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      margin-top: 0.5rem;
+    }
+
+    /* FULL HORIZONTAL MENU SECTION */
+    .menu-search {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+      display: block;
+      padding: 1.1rem 1.6rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: #fff;
+      border-radius: 35px;
+      outline: none;
+      font-size: 1.1rem;
+    }
+
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .tab-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.7rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 1rem;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--gold-primary);
+      color: #000;
+      font-weight: 700;
+    }
+
+    /* Horizontal grid layout for square dish cards */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+      width: 100%;
+    }
+
+    .menu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 1.8rem;
+      border-radius: 16px;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 180px;
+    }
+
+    .menu-card:hover {
+      border-color: var(--gold-primary);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1rem;
+      gap: 10px;
+    }
+
+    .item-title {
+      font-size: 1.25rem;
+      color: #fff;
+    }
+
+    .item-price {
+      color: var(--gold-primary);
+      font-weight: 700;
+      font-size: 1.15rem;
+      white-space: nowrap;
+    }
+
+    .item-desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    /* TIMINGS & LOCATION SECTION (Next Scroll) */
+    .timings-section {
+      background: rgba(18, 24, 36, 0.4);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      margin-top: 2rem;
+    }
+
+    .info-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 2.5rem;
+      border-radius: 20px;
+    }
+
+    .info-box h3 {
+      color: var(--gold-primary);
+      font-size: 1.6rem;
+      margin-bottom: 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .hours-table td {
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 1.15rem;
+    }
+
+    .hours-table td:last-child {
+      text-align: right;
+      color: var(--gold-primary);
+      font-weight: 700;
+    }
+
+    /* EXPANDED AI CHATBOT WIDGET */
+    #ai-chat-widget {
+      position: fixed;
+      bottom: 30px;
+      right: 35px;
+      z-index: 1000;
+    }
+
+    .chat-trigger-btn {
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-glow));
+      border: none;
+      border-radius: 50px;
+      padding: 0 28px;
+      height: 75px;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(245, 176, 65, 0.5);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #000;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-left: auto;
+    }
+
+    .chat-trigger-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* Increased chatbot size */
+    .chat-popup {
+      display: none;
+      position: fixed;
+      bottom: 120px;
+      right: 35px;
+      width: 620px;
+      max-width: 94vw;
+      height: 760px;
+      max-height: 85vh;
+      background: var(--bg-card);
+      border: 2px solid var(--gold-primary);
+      border-radius: 24px;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95);
+      z-index: 1001;
+    }
+
+    .chat-header {
+      background: var(--bg-card-hover);
+      padding: 24px 30px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-header-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .chat-header-info i {
+      font-size: 2rem;
+      color: var(--gold-primary);
+    }
+
+    .chat-title {
+      color: var(--gold-primary);
+      font-weight: 700;
+      font-size: 1.45rem;
+      display: block;
+    }
+
+    .chat-status {
+      font-size: 0.9rem;
+      color: #52be80;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chat-status::before {
+      content: '';
+      width: 9px;
+      height: 9px;
+      background: #52be80;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .chat-header button {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.8rem;
+    }
+
+    .chat-body {
+      flex: 1;
+      padding: 26px;
+      overflow-y: auto;
+      font-size: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .chat-suggestions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .chip-btn {
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      color: var(--gold-primary);
+      padding: 10px 16px;
+      border-radius: 18px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .chip-btn:hover {
+      background: var(--gold-primary);
+      color: #000;
+    }
+
+    .chat-footer {
+      padding: 22px 26px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      gap: 14px;
+      background: var(--bg-card-hover);
+    }
+
+    .chat-input {
+      flex: 1;
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 16px 22px;
+      border-radius: 18px;
+      outline: none;
+      font-size: 1.15rem;
+    }
+
+    .chat-send-btn {
+      padding: 0 28px;
+      border-radius: 18px;
+      font-size: 1.35rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      border-top: 1px solid var(--border-color);
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem 4%;
+      }
+
+      nav {
+        gap: 1rem;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+      }
+
+      .btn-gold {
+        padding: 0.6rem 1.1rem;
+        font-size: 0.9rem;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .chat-popup {
+        width: 95vw;
+        right: 2.5vw;
+        bottom: 100px;
+        height: 78vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header>
+    <a href="#home" class="logo">
+      <i class="fa-solid fa-leaf logo-icon"></i>
+      <div>
+        <span class="logo-text">SALT & SAGE</span>
+        <span class="logo-sub">RESTAURANT & KITCHEN</span>
+      </div>
+    </a>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#menu-section">Menu</a>
+      <a href="#timings-section">Timings & Location</a>
+      <button onclick="toggleChatWindow()" class="btn-gold">Order / Reserve</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section id="home" class="hero-section hero">
+      <video class="hero-video" autoplay loop muted playsinline id="bgVideo">
+        <source src="assets/hero-video.mp4" type="video/mp4" />
+        Your browser does not support HTML5 video.
+      </video>
+      
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <div class="hero-tagline">Authentic Coastal & Artisanal Cuisine</div>
+        <h1>Savor The Fine Art Of Flavors</h1>
+        <p>From whole grilled fish cooked in aromatic herbs to slow-cooked signature recipes, experience dining excellence at Salt and Sage.</p>
+        <a href="#menu-section" class="btn-gold">Explore Full Menu</a>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section-container">
+      <div class="section-header">
+        <h2>About Salt and Sage Restaurant</h2>
+        <p>A Legacy of Fine Coastal & Modern Culinary Excellence</p>
+      </div>
+      <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 2.5rem; border-radius: 16px; line-height: 1.8; color: var(--text-muted); font-size: 1.15rem; max-width: 1200px; margin: 0 auto; text-align: center;">
+        <p>At Salt and Sage Restaurant, we blend seasonal coastal ingredients with timeless culinary techniques. Every dish is crafted to order using hand-selected spices, fresh seafood, and premium grilled cuts. Use our interactive menu and AI Concierge for quick reservations and delivery details.</p>
+      </div>
+    </section>
+
+    <!-- HORIZONTAL FULL-WIDTH MENU SECTION -->
+    <section id="menu-section" class="section-container">
+      <div class="section-header">
+        <h2>Our Culinary Offerings</h2>
+        <p>Freshly crafted daily using artisanal herbs and spices</p>
+      </div>
+
+      <input type="text" id="menu-search-input" class="menu-search" placeholder="Search dishes (e.g., Fish Curry, Biryani)..." onkeyup="filterSearch()" />
+
+      <div class="menu-tabs">
+        <button class="tab-btn active" onclick="filterMenu('all', event)">All Items</button>
+        <button class="tab-btn" onclick="filterMenu('Seafood Specials', event)">Seafood</button>
+        <button class="tab-btn" onclick="filterMenu('BBQ & Grills', event)">BBQ & Grills</button>
+        <button class="tab-btn" onclick="filterMenu('Main Course', event)">Main Course</button>
+        <button class="tab-btn" onclick="filterMenu('Starters & Appetizers', event)">Starters</button>
+        <button class="tab-btn" onclick="filterMenu('Desserts', event)">Desserts</button>
+      </div>
+
+      <!-- Horizontal grid displaying cards across the width -->
+      <div class="menu-grid" id="menu-container"></div>
+    </section>
+
+    <!-- NEXT SCROLL: TIMINGS & LOCATION SECTION -->
+    <section id="timings-section" class="section-container timings-section">
+      <div class="section-header">
+        <h2>Opening Hours & Location</h2>
+        <p>Plan your visit or get in touch for table reservations</p>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-box">
+          <h3><i class="fa-regular fa-clock"></i> Opening Hours</h3>
+          <table class="hours-table">
+            <tr><td>Monday – Wednesday</td><td>12:00 PM – 11:00 PM</td></tr>
+            <tr><td>Thursday</td><td>12:00 PM – 11:30 PM</td></tr>
+            <tr><td>Friday</td><td>01:30 PM – 12:00 AM</td></tr>
+            <tr><td>Saturday</td><td>12:00 PM – 12:00 AM</td></tr>
+            <tr><td>Sunday</td><td>12:00 PM – 11:30 PM</td></tr>
+          </table>
+        </div>
+
+        <div class="info-box">
+          <h3><i class="fa-solid fa-location-dot"></i> Location & Contact</h3>
+          <p style="color:var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6; font-size: 1.15rem;">
+            Salt and Sage Restaurant, Main Culinary Boulevard
+          </p>
+          <p style="margin-bottom: 1rem; font-size: 1.15rem;"><strong style="color:var(--gold-primary);">Call Desk:</strong> +92 21 3587 4210</p>
+          <p style="font-size: 1.15rem;"><strong style="color:var(--gold-primary);">WhatsApp:</strong> +92 300 1122334</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- EXPANDED AI CHATBOT WIDGET -->
+  <div id="ai-chat-widget">
+    <button class="chat-trigger-btn" onclick="toggleChatWindow()" title="Chat with Salt and Sage AI Concierge">
+      <i class="fa-solid fa-robot" style="font-size: 1.9rem;"></i>
+      <span>AI Concierge</span>
+    </button>
+
+    <div class="chat-popup" id="chat-window">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <i class="fa-solid fa-robot"></i>
+          <div>
+            <span class="chat-title">Salt & Sage AI Assistant</span>
+            <span class="chat-status">Online | Ready to assist</span>
+          </div>
+        </div>
+        <button onclick="toggleChatWindow()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="chat-body" id="chat-messages">
+        <div style="background: var(--bg-card-hover); color: #fff; padding: 20px 24px; border-radius: 18px; border-left: 5px solid var(--gold-primary); line-height: 1.6;">
+          Welcome to Salt and Sage Restaurant! How can I assist you with reservations, dietary options, or menu recommendations today?
+        </div>
+
+        <div class="chat-suggestions">
+          <button class="chip-btn" onclick="sendQuickMessage('What are your top seafood specials?')">Seafood Specials</button>
+          <button class="chip-btn" onclick="sendQuickMessage('How do I make a table reservation?')">Book Table</button>
+          <button class="chip-btn" onclick="sendQuickMessage('What are your opening timings today?')">Opening Hours</button>
+        </div>
+      </div>
+
+      <div class="chat-footer">
+        <input type="text" id="chat-input" class="chat-input" placeholder="Type your message here..." onkeypress="if(event.key==='Enter') sendChatMessage()" />
+        <button onclick="sendChatMessage()" class="btn-gold chat-send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Salt and Sage Restaurant. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Video autoplay
+    window.addEventListener('DOMContentLoaded', () => {
+      const vid = document.getElementById('bgVideo');
+      if (vid) {
+        vid.muted = true;
+        vid.play().catch(e => console.log("Autoplay caught:", e));
+      }
+    });
+
+    // Menu Data
+    const menuData = [
+      { name: "Prawn Koftay", category: "Starters & Appetizers", desc: "Spiced prawn dumplings, tamarind dip", price: "950" },
+      { name: "Fish Pakora", category: "Starters & Appetizers", desc: "Crispy battered kingfish bites, mint chutney", price: "850" },
+      { name: "Chicken Chatkhara Wings", category: "Starters & Appetizers", desc: "Tangy spiced grilled wings (6 pcs)", price: "750" },
+      { name: "Sage Special Fish Curry", category: "Seafood Specials", desc: "Whole pomfret cooked in house herb masala", price: "2,400" },
+      { name: "Grilled Lobster", category: "Seafood Specials", desc: "Butter-garlic glazed lobster (per piece)", price: "4,200" },
+      { name: "Prawn Karahi", category: "Seafood Specials", desc: "Jumbo prawns in tomato-based karahi gravy", price: "2,800" },
+      { name: "Fried Kalri Fish", category: "Seafood Specials", desc: "Golden fried whole kalri, served with salad", price: "2,100" },
+      { name: "Squid Masala", category: "Seafood Specials", desc: "Calamari tossed in dark spice masala", price: "1,900" },
+      { name: "Seekh Kabab (4 pcs)", category: "BBQ & Grills", desc: "Charcoal-grilled minced beef skewers", price: "950" },
+      { name: "Chicken Malai Boti", category: "BBQ & Grills", desc: "Creamy marinated grilled chicken chunks", price: "1,050" },
+      { name: "Mutton Chops", category: "BBQ & Grills", desc: "Herb-marinated grilled lamb chops (6 pcs)", price: "2,200" },
+      { name: "Fish Tikka", category: "BBQ & Grills", desc: "Char-grilled marinated fish cubes", price: "1,600" },
+      { name: "Salt & Sage Special Biryani", category: "Main Course", desc: "Fragrant rice cooked with aged herbs and spices", price: "850" },
+      { name: "Chicken Karahi (Full)", category: "Main Course", desc: "Traditional tomato-based chicken karahi", price: "2,400" },
+      { name: "Palak Gosht", category: "Main Course", desc: "Mutton cooked with spinach curry", price: "1,650" },
+      { name: "Sheer Khurma", category: "Desserts", desc: "Vermicelli pudding with dates & nuts", price: "450" },
+      { name: "Chocolate Lava Cake", category: "Desserts", desc: "Warm molten chocolate cake with ice cream", price: "650" }
+    ];
+
+    // Menu Rendering
+    function renderMenu(items) {
+      const container = document.getElementById('menu-container');
+      container.innerHTML = items.map(item => `
+        <div class="menu-card">
+          <div class="card-header">
+            <h3 class="item-title">${item.name}</h3>
+            <span class="item-price">PKR ${item.price}</span>
+          </div>
+          <p class="item-desc">${item.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    function filterMenu(category, event) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      if (category === 'all') {
+        renderMenu(menuData);
+      } else {
+        renderMenu(menuData.filter(i => i.category === category));
+      }
+    }
+
+    function filterSearch() {
+      const query = document.getElementById('menu-search-input').value.toLowerCase();
+      renderMenu(menuData.filter(item => 
+        item.name.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query)
+      ));
+    }
+
+    // Chatbot Logic
+    function toggleChatWindow() {
+      const win = document.getElementById('chat-window');
+      win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function sendQuickMessage(text) {
+      document.getElementById('chat-input').value = text;
+      sendChatMessage();
+    }
+
+    async function sendChatMessage() {
+      const inputEl = document.getElementById('chat-input');
+      const msgContainer = document.getElementById('chat-messages');
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      msgContainer.innerHTML += `<div style="background: var(--gold-primary); color: #000; padding: 16px 20px; border-radius: 18px; max-width: 85%; align-self: flex-end; font-weight: 600; font-size: 1.15rem; line-height: 1.5;">${text}</div>`;
+      inputEl.value = '';
+      msgContainer.scrollTop = msgContainer.scrollHeight;
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            input: text,
+            dataset: 'data/Salt_and_Sage_Restaurant_Dataset'
+          })
+        });
+        const data = await res.json();
+        msgContainer.innerHTML += `<div style="background: var(--bg-card-hover); color: #fff; padding: 18px 22px; border-radius: 18px; max-width: 85%; border-left: 5px solid var(--gold-primary); font-size: 1.15rem; line-height: 1.5;">${data.output || 'Processing request...'}</div>`;
+        msgContainer.scrollTop = msgContainer.scrollHeight;
+      } catch (err) {
+        msgContainer.innerHTML += `<div style="color: #ff6b6b; font-size: 1.1rem;">Error connecting to AI assistant.</div>`;
+      }
+    }
+
+    // Initial Load
+    renderMenu(menuData);
+  </script>
+</body>
+</html>
